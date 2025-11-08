@@ -7,7 +7,7 @@ import androidx.room.TypeConverters
 import com.example.mcqquiz.data.Converters
 import com.example.mcqquiz.data.McqQuestionEntity
 
-@Database(entities = [McqQuestionEntity::class], version = 6, exportSchema = true)
+@Database(entities = [McqQuestionEntity::class], version = 7, exportSchema = true)
 @TypeConverters(Converters::class)
 abstract class McqDatabase: RoomDatabase() {
     abstract fun quizDao(): QuizDao

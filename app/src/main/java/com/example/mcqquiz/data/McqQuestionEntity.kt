@@ -15,5 +15,9 @@ data class McqQuestionEntity(
     @ColumnInfo(name = "question")
     val question: String,
     @ColumnInfo(name = "isAnswered")
-     val isAnswered: Boolean
+     val isAnswered: Boolean,
+    @ColumnInfo(name = "isCorrectlyAnswered")
+    val isCorrectlyAnswered: Boolean,
+    @ColumnInfo(name = "isSkipped")
+    val isSkipped: Boolean
 )

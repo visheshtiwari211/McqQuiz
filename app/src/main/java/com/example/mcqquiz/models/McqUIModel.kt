@@ -8,5 +8,7 @@ data class McqUIModel(
     val correctOptionIndex: Int,
     val options: List<String>,
     val question: String,
-    val isAnswered: Boolean
+    val isAnswered: Boolean,
+    val isCorrectlyAnswered: Boolean,
+    val isSkipped: Boolean
 )

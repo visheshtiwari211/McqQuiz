@@ -12,7 +12,9 @@ object MapperFunctions {
             correctOptionIndex = this.correctOptionIndex,
             options = this.options,
             question = this.question,
-            isAnswered = false
+            isAnswered = false,
+            isCorrectlyAnswered = false,
+            isSkipped = false
         )
     }
     fun AllMcqPayloadDto.toDaoList(): List<McqQuestionEntity> {
@@ -26,10 +28,12 @@ object MapperFunctions {
     fun McqQuestionEntity.toUiModel(): McqUIModel {
         return McqUIModel(
             mcqId = this.mcqId,
-            correctOptionIndex = correctOptionIndex,
-            options = options,
-            question = question,
-            isAnswered = this.isAnswered
+            correctOptionIndex = this.correctOptionIndex,
+            options = this.options,
+            question = this.question,
+            isAnswered = this.isAnswered,
+            isCorrectlyAnswered = this.isCorrectlyAnswered,
+            isSkipped = this.isSkipped
         )
     }
 }

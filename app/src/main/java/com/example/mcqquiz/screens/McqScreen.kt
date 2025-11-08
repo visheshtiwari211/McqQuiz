@@ -51,7 +51,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-fun McqScreen(modifier: Modifier = Modifier, viewModel: QuizViewModel) {
+fun McqScreen(
+    modifier: Modifier = Modifier,
+    viewModel: QuizViewModel,
+    onNavigateToResultsScreen: () -> Unit
+) {
     val coroutineScope = rememberCoroutineScope()
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     var showStreakAnimation by remember { mutableStateOf(false) }
@@ -70,6 +74,12 @@ fun McqScreen(modifier: Modifier = Modifier, viewModel: QuizViewModel) {
         }
 
         previousStreak = current
+    }
+
+    LaunchedEffect(state.questions) {
+        if (state.questions.isNotEmpty() && state.questions.all { it.isAnswered }) {
+            onNavigateToResultsScreen()
+        }
     }
 
     Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

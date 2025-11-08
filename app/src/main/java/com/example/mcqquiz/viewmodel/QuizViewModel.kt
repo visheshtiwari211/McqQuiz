@@ -24,6 +24,8 @@ class QuizViewModel @Inject constructor(val repository: QuizRepository) : ViewMo
                 val nextIndex = list.indexOfFirst { !it.isAnswered }.takeIf { it != -1 } ?: list.lastIndex
                 val currentStreak = calculateCurrentStreak(list)
                 val longestStreak = calculateLongestStreak(list)
+                calculateScore(list)
+                calculateSkippedQuestions(list)
                 _uiState.update {
                     it.copy(
                         questions = list,
@@ -39,6 +41,15 @@ class QuizViewModel @Inject constructor(val repository: QuizRepository) : ViewMo
     fun markAsAnswered(questionId: Int, isCorrectlyAnswered: Boolean) {
         viewModelScope.launch {
             repository.updateIsAnswered(mcqId = questionId, isAnswered = true, isCorrectlyAnswered, false)
+        }
+    }
+
+    fun resetQuiz() {
+        viewModelScope.launch {
+            repository.resetQuiz()
+            _uiState.update {
+                QuizUiState()
+            }
         }
     }
 
@@ -80,4 +91,26 @@ class QuizViewModel @Inject constructor(val repository: QuizRepository) : ViewMo
         }
         return longest
     }
+
+    var totalScore = 0
+    private fun calculateScore(questions: List<McqUIModel>) {
+        totalScore = 0
+        for (q in questions) {
+            if (q.isCorrectlyAnswered) {
+                totalScore++
+            }
+        }
+    }
+
+    var skippedCount = 0
+    fun calculateSkippedQuestions(questions: List<McqUIModel>) {
+        skippedCount = 0
+        for (q in questions) {
+            if (q.isSkipped) {
+                skippedCount++
+            }
+        }
+    }
+
+
 }

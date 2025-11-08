@@ -19,4 +19,7 @@ interface QuizDao {
 
     @Query("SELECT * FROM mcq")
     suspend fun getAllLocalData(): List<McqQuestionEntity>
+
+    @Query("UPDATE mcq SET isAnswered = 0, isCorrectlyAnswered = 0,isSkipped = 0")
+    suspend fun resetQuiz()
 }

@@ -54,4 +54,8 @@ class QuizRepository @Inject constructor(
         println("inside updateIsAnswered: mcqId: $mcqId -- isAnswered: $isAnswered")
         quizDao.updateIsAnswered(mcqId = mcqId, answered = isAnswered, isCorrect = isCorrect, isSkipped)
     }
+
+    suspend fun resetQuiz() {
+        quizDao.resetQuiz()
+    }
 }

@@ -18,10 +18,10 @@ fun AppNavHost(
 ) {
     NavHost(navController = navController, startDestination = McqScreenRoute) {
         composable<McqScreenRoute> {
-            McqScreen(viewModel = viewModel, modifier = modifier)
+            McqScreen(viewModel = viewModel, modifier = modifier, onNavigateToResultsScreen = { navController.navigate(ResultScreenRoute) })
         }
         composable<ResultScreenRoute> {
-            ResultScreenRoute(viewModel = viewModel, modifier = modifier)
+            ResultScreenRoute(viewModel = viewModel, modifier = modifier, onRestartClick = { navController.popBackStack() })
         }
     }
 }

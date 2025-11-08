@@ -20,18 +20,24 @@ class QuizViewModel @Inject constructor(val repository: QuizRepository) : ViewMo
 
     init {
         viewModelScope.launch {
-            repository.getAllMcq().collect { list ->
-                val nextIndex = list.indexOfFirst { !it.isAnswered }.takeIf { it != -1 } ?: list.lastIndex
+            repository.getAllMcq()
+        }
+        viewModelScope.launch {
+            repository.observeMcq().collect { list ->
+                val nextIndex = list.indexOfFirst { !it.isAnswered }
+                    .takeIf { it != -1 } ?: list.lastIndex
+
                 val currentStreak = calculateCurrentStreak(list)
                 val longestStreak = calculateLongestStreak(list)
                 calculateScore(list)
                 calculateSkippedQuestions(list)
+
                 _uiState.update {
                     it.copy(
                         questions = list,
                         currentIndex = nextIndex,
                         currentStreak = currentStreak,
-                        longestStreak = longestStreak
+                        longestStreak = longestStreak,
                     )
                 }
             }
@@ -65,13 +71,13 @@ class QuizViewModel @Inject constructor(val repository: QuizRepository) : ViewMo
 
     private fun calculateCurrentStreak(questions: List<McqUIModel>): Int {
         var streak = 0
+        val lastAnsweredIndex = questions.indexOfLast { it.isAnswered }
+        if (lastAnsweredIndex == -1) return 0
 
-        for (q in questions) {
-            if (q.isCorrectlyAnswered) {
-                streak++
-            } else {
-                break
-            }
+        for (i in lastAnsweredIndex downTo 0) {
+            val q = questions[i]
+            if (!q.isCorrectlyAnswered) break
+            streak++
         }
 
         return streak
@@ -111,6 +117,4 @@ class QuizViewModel @Inject constructor(val repository: QuizRepository) : ViewMo
             }
         }
     }
-
-
 }

@@ -63,6 +63,7 @@ fun McqScreen(
 
 
     LaunchedEffect(state.currentStreak) {
+        println("currentStreak: ${state.currentStreak}")
         val current = state.currentStreak
         if (current > 0 &&
             current % 3 == 0 &&
@@ -82,11 +83,11 @@ fun McqScreen(
         }
     }
 
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    Box(modifier = modifier.fillMaxSize().padding(top = 16.dp), contentAlignment = Alignment.Center) {
         if (state.questions.isNotEmpty()) {
             val current = state.questions[state.currentIndex]
             Column(
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 16.dp),
             ) {

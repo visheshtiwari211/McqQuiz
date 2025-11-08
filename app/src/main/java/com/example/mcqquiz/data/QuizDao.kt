@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface QuizDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllMcq(mcqList: List<McqQuestionEntity>)
+    suspend fun insertAllMcq(list: List<McqQuestionEntity>)
 
     @Query("SELECT * FROM mcq")
     fun getAllMcq(): Flow<List<McqQuestionEntity>>

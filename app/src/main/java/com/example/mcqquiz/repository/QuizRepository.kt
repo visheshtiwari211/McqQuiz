@@ -15,7 +15,7 @@ class QuizRepository @Inject constructor(
     private val quizDao: QuizDao
 ) {
 
-    suspend fun getAllMcq(): Flow<List<McqUIModel>> {
+    suspend fun getAllMcq() {
         val mcqPayloadDto = quizApi.getAllMcqPayload()
         if (mcqPayloadDto.isSuccessful) {
             println("${mcqPayloadDto.body()?.toDaoList()}")
@@ -47,7 +47,11 @@ class QuizRepository @Inject constructor(
                 quizDao.insertAllMcq(mergedList)
             }
         }
-        return quizDao.getAllMcq().map { it.toUiModelList() }
+    }
+
+    fun observeMcq(): Flow<List<McqUIModel>> {
+        return quizDao.getAllMcq()
+            .map { it.toUiModelList() }
     }
 
     suspend fun updateIsAnswered(mcqId: Int, isAnswered: Boolean, isCorrect: Boolean, isSkipped: Boolean) {

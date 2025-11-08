@@ -1,4 +1,4 @@
-package com.example.mcqquiz
+package com.example.mcqquiz.data
 
 import androidx.room.TypeConverter
 import kotlinx.serialization.json.Json
@@ -6,11 +6,11 @@ import kotlinx.serialization.json.Json
 class Converters {
     @TypeConverter
     fun fromOptionsList(list: List<String>): String {
-        return Json.encodeToString(list)
+        return Json.Default.encodeToString(list)
     }
 
     @TypeConverter
     fun toOptionsList(json: String): List<String> {
-        return Json.decodeFromString(json)
+        return Json.Default.decodeFromString(json)
     }
 }

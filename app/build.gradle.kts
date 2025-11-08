@@ -81,6 +81,9 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
 
+    // optional for coroutines support
+    implementation(libs.androidx.room.ktx)
+
     //sqlite dependency
     implementation(libs.androidx.sqlite.bundled)
 

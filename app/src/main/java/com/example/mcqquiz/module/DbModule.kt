@@ -17,7 +17,8 @@ object DbModule {
     @Provides
     @Singleton
     fun providesMcqDatabase(@ApplicationContext context: Context): McqDatabase {
-        return Room.databaseBuilder(context, McqDatabase::class.java, "mcq_db").build()
+        return Room.databaseBuilder(context, McqDatabase::class.java, "mcq_db")
+            .fallbackToDestructiveMigration(true).build()
     }
 
     @Provides

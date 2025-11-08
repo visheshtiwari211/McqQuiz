@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.mcqquiz.models.McqQuestionEntity
+import com.example.mcqquiz.data.McqQuestionEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -17,4 +17,7 @@ interface QuizDao {
 
     @Query("UPDATE mcq SET isAnswered = :answered WHERE mcqId = :mcqId")
     suspend fun updateIsAnswered(mcqId: Int, answered: Boolean)
+
+    @Query("SELECT * FROM mcq")
+    suspend fun getAllLocalData(): List<McqQuestionEntity>
 }

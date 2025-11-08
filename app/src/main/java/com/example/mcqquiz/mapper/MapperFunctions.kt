@@ -2,7 +2,7 @@ package com.example.mcqquiz.mapper
 
 import com.example.mcqquiz.models.AllMcqPayloadDto
 import com.example.mcqquiz.models.AllMcqPayloadItemDto
-import com.example.mcqquiz.models.McqQuestionEntity
+import com.example.mcqquiz.data.McqQuestionEntity
 import com.example.mcqquiz.models.McqUIModel
 
 object MapperFunctions {

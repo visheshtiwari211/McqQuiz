@@ -101,7 +101,7 @@ fun McqScreen(
                     ) {
                         LinearProgressIndicator(
                             progress = {
-                                state.currentIndex.toFloat() / state.questions.size
+                                (state.currentIndex.toFloat() + 1) / state.questions.size
                             },
                             color = Color.Black,
                             gapSize = 4.dp,
@@ -115,7 +115,7 @@ fun McqScreen(
                                 .wrapContentHeight(),
                             horizontalArrangement = Arrangement.End
                         ) {
-                            Text(text = "${state.currentIndex}/${state.questions.size}")
+                            Text(text = "${state.currentIndex + 1}/${state.questions.size}")
                         }
                         Text(current.question)
                     }

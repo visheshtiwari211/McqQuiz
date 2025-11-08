@@ -192,7 +192,7 @@ fun McqScreen(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = "🔥 Congratulations!",
+                            text = "Congratulations!",
                             style = MaterialTheme.typography.headlineSmall.copy(
                                 fontWeight = FontWeight.Bold,
                                 color = Color.White
